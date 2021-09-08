@@ -27,6 +27,6 @@ public class RenderUtil {
         return new FramePart(text, width/2, height/2, Color.white, new Font("TimesRoman", Font.PLAIN, 100), true);
     }
     public static FramePart framerate(double deltaTime){
-        return new FramePart(""+(int)(0.01/deltaTime), 10, 35, Color.green,new Font("TimesRoman", Font.PLAIN, 15), false);
+        return new FramePart(""+(int)(1/deltaTime), 10, 25, Color.green,new Font("TimesRoman", Font.PLAIN, 15), false);
     }
 }

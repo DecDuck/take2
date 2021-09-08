@@ -48,11 +48,15 @@ public class AssetManager {
         return assets.size() - 1;
     }
 
-    public FramePart CreateFramePart(int width, int height, BufferedImage reference){
+    public FramePart CreateFramePart(int xoffset, int yoffset, int width, int height, BufferedImage reference){
         List<Pixel> results = new ArrayList<Pixel>();
         for(int x = 0; x < width; x++){
             for(int y = 0; y < height; y++){
-                results.add(new Pixel(x, y, new Color(reference.getRGB(x, y), true)));
+                Color c = new Color(reference.getRGB(x, y), true);
+                if(c.getAlpha() > 0){
+                    c = new Color(c.getRed(), c.getGreen(), c.getBlue(), 255);
+                }
+                results.add(new Pixel(xoffset + x, yoffset + y, c));
             }
         }
         FramePart result = new FramePart(results);

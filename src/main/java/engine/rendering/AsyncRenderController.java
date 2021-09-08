@@ -12,14 +12,17 @@ public class AsyncRenderController extends Thread {
     }
 
     public void run() {
-        renderer.Render();
-        try {
-            Thread.sleep((int)(1000 / frameRate));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if(renderer.isRunning){
-            new AsyncRenderController(renderer, frameRate).start();
+        while(renderer.isRunning){
+            try {
+                renderer.Render();
+
+                if((0.01/renderer.DeltaTime()) > frameRate){
+                    Thread.sleep((int)(1000 / frameRate));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Ignoring error and continuing rendering. Hopefully it's ok :)");
+            }
         }
     }
 }

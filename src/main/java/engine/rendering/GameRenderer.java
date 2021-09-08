@@ -112,6 +112,11 @@ public class GameRenderer {
 
         BufferStrategy bs = frame.getBufferStrategy();
 
+        if(bs == null){
+            frame.createBufferStrategy(4);
+            return;
+        }
+
         image = create(frame.getWidth(), frame.getHeight(), true);
 
         Graphics2D g = (Graphics2D) image.getGraphics();

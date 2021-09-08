@@ -39,7 +39,6 @@ public class GameEngine {
         saveFileManager = new SaveFileManager();
         random = new Random();
         random.setSeed(System.nanoTime());
-        //renderer.frame.addMouseListener(mouseManager);
         deltaPrevious = System.nanoTime();
     }
 
@@ -60,11 +59,11 @@ public class GameEngine {
     }
 
     public double DeltaTime(){
-        return deltaTime / 100000000000.0;
+        return deltaTime / 1000000000.0;
     }
 
     public double LoopTime(){
-        return loopTime / 100000000000.0;
+        return loopTime / 1000000000.0;
     }
 
     public int GetX(){
@@ -87,6 +86,6 @@ public class GameEngine {
     }
 
     public void StartRenderCycle(){
-        new AsyncRenderController(this, 10000000).start();
+        new AsyncRenderController(this, 60).start();
     }
 }

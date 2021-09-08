@@ -27,6 +27,7 @@ public class UIManager {
         public FloatArea area;
         public String text;
         public List<Method> onClick;
+        public Object clickObject;
 
         public UIComponent(String text, FloatArea area){
             uType = UIType.Text;
@@ -34,11 +35,12 @@ public class UIManager {
             this.area = area;
         }
 
-        public UIComponent(String text, FloatArea area, Method... functions){
+        public UIComponent(String text, FloatArea area, Object button, Method... functions){
             uType = UIType.Button;
             this.text = text;
             this.area = area;
             onClick = new ArrayList<Method>();
+            clickObject = button;
             for(int i = 0; i < functions.length; i++){
                 onClick.add(functions[i]);
             }
@@ -54,10 +56,9 @@ public class UIManager {
                                 engine.inputManager.IsMouseDown()){
                                     for(Method f : onClick){
                                         try {
-                                            f.invoke(engine.uiManager);
+                                            f.invoke(clickObject);
                                         } catch (IllegalAccessException | IllegalArgumentException
                                                 | InvocationTargetException e) {
-                                            // TODO Auto-generated catch block
                                             e.printStackTrace();
                                         }
                                     }
@@ -70,8 +71,8 @@ public class UIManager {
         this.engine = engine;
     }
 
-    public void CreateButton(String name, FloatArea area, Method... functions){
-        UIComponent button = new UIComponent(name, area, functions);
+    public void CreateButton(String name, FloatArea area, Object clickObject, Method... functions){
+        UIComponent button = new UIComponent(name, area, clickObject, functions);
         uiComponents.add(button);
     }
 
